@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Thymeleaf</title>
+</head>
+<body>
+	<div th:insert="~{ thymeleaf/nav :: navbar }"></div>
+	
+	<p th:text="${ message }"></p>
+	<p th:text="${ message } + ' from Lyon'"></p>
+	<p th:text="| ${ message } from Lyon |"></p>
+	<hr />
+	<p th:text="'Bonjour ' + |${ person.firstName } ${ person.lastName } |"></p>
+	<hr />
+	<div th:if="${ message.length() >= 5 }">
+		<p th:text="${ message }"></p>
+	</div>
+	<p th:text="${ message.length() >= 5 } ? ${ message }"></p>
+	<hr />
+	<p th:text="${ message.length() >= 5 } ? 'long' : 'court' "></p>
+	<hr />
+	<p th:if="${ message.length() >= 15 }" th:text="long"></p>
+	<p th:unless="${ message.length() >= 15 }" th:text="court"></p>
+	<hr />
+	<div th:switch="${ message.length() }">
+		<p th:case="1">Un</p>
+		<p th:case="2">Deux</p>
+		<p th:case="*">Autre</p>
+	</div>
+	<hr />
+	<div th:each="perso, status : ${ persons }">
+		<span th:text="${ status.index }"></span> <span
+			th:text="${ perso.firstName }"></span> <span
+			th:text="${ perso['lastName'] }"></span>
+	</div>
+	<hr />
+	<div th:with="variable=${ message.length() }">
+		<p>
+			Le message de bienvenue contient <span th:text="${ variable }"></span>
+			lettres.
+		</p>
+	</div>
+	<div
+		th:with="variable=${ message.length() },
+        parity=${ variable % 2 == 0 ? 'pair' : 'impair' }">
+		<p>
+			Le message de bienvenue contient <span th:text="${ variable }"></span>
+			lettres, soit un nombre <span th:text="${ parity }"> </span> de
+			lettres.
+		</p>
+	</div>
+	<hr />
+	<div>
+		<span th:text="${ person.firstName }"></span> 
+		<span th:text="${ person.lastName }"></span> 
+		<span th:text="${ person.age }"></span>
+	</div>
+	<div th:object="${ person }">
+		<span th:text="*{ firstName }"></span> 
+		<span th:text="*{ lastName }"></span> 
+		<span th:text="${ #object.age }"></span>
+	</div>
+</body>
+</html>
