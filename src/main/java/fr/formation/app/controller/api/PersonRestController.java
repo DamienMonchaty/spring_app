@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,7 +67,7 @@ public class PersonRestController {
 
 	// POST http://localhost:8080/api/v1/persons
 	@Operation(summary = "Create one person")
-	@PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	@PostMapping
 	public ResponseEntity<PersonDTO> create(@RequestBody @Valid PersonDTO personDTO) {
         PersonDTO savedPerson = personService.saveOrUpdate(personDTO);
         return new ResponseEntity<>(savedPerson, HttpStatus.CREATED);
